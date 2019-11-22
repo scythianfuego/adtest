@@ -1,0 +1,31 @@
+body {
+  width: 760px;
+  margin: auto;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-indent: 20px;
+}
+
+p {
+  text-indent: 20px;
+  line-height: 150%;
+}
+
+.parent {
+  color: blue;
+}
+
+/* No classes defined for our component */
+/* Wrapper */
+.parent > div {
+  text-indent: 0;
+  color: #fff;
+  padding: 10px 0;
+}
+
+/* Component */
+.parent > div > div {
+  box-shadow: 2px 2px 5px 0px #777;
+  padding: 10px;
+  box-sizing: border-box;
+}
