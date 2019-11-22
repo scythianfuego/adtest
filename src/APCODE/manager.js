@@ -38,9 +38,11 @@ class Manager {
       this.frameRequested = true;
       window.requestAnimationFrame(() => {
         if (this.updateList.length > 0) {
+          this.updateList.forEach(i => i.measure());
           this.updateList.forEach(i => i.onScroll());
           this.updateList = [];
         } else {
+          this.injected.forEach(i => i.measure());
           this.injected.forEach(i => i.onScroll());
         }
         this.frameRequested = false;

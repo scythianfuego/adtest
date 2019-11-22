@@ -6,8 +6,6 @@ export default class Apcode {
     this.visible = false; // more than 50% is shown
     this.sticky = false; // is sticky?
     this.element = null; // injected DOM element
-
-    this.scrollHandler = null; // bound event handler function
     this.savedPosition = null; // scroll y position, where to unstick
     this.bounds = null; // cached getBoundingClientRect
   }
@@ -29,28 +27,10 @@ export default class Apcode {
     this.wrapper.style.height = styleDefaults.height;
     this.wrapper.appendChild(this.element);
     parent.appendChild(this.wrapper);
-
-    // this.scheduleUpdate(); // let listeners subscribe before first visibility event is dispatched
-    // this.scrollHandler = () => this.scheduleUpdate();
-    // window.addEventListener("scroll", this.scrollHandler, { passive: true });
-    // window.addEventListener("resize", this.scrollHandler, { passive: true });
-
     return this.element;
   }
 
-  scheduleUpdate() {
-    throw new Error("deprecated");
-    if (!this.frameRequested) {
-      this.frameRequested = true;
-      window.requestAnimationFrame(() => {
-        this.onScroll();
-        this.frameRequested = false;
-      }); // ie10+
-    }
-  }
-
   remove() {
-    window.removeEventListener(this.scrollHandler);
     this.wrapper.removeChild(this.element);
     parent.removeChild(this.wrapper);
   }
@@ -80,10 +60,12 @@ export default class Apcode {
     );
   }
 
+  measure() {
+    this.bounds = this.element.getBoundingClientRect(); // ie6+, triggers reflow
+  }
+
   onScroll() {
     const { style } = this.element;
-    this.bounds = this.element.getBoundingClientRect(); // ie6+, measure, triggers reflow
-
     const visible = this.shouldBeVisible();
     if (this.visible !== visible) {
       this.visible = visible;
