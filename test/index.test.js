@@ -1,6 +1,11 @@
 import "../src/APCODE";
 
 describe("APCODE", () => {
+  beforeEach(() => {
+    document.body.innerHTML = "";
+    window.APCODE.clear();
+  });
+
   describe("Library", () => {
     it("should exist on window", () => {
       expect(window.APCODE).to.be.an("object");
@@ -24,7 +29,6 @@ describe("APCODE", () => {
     beforeEach(() => {
       const anchor = document.createElement("div");
       anchor.classList.add("parent");
-      document.body.innerHTML = "";
       document.body.appendChild(anchor);
     });
 
@@ -72,7 +76,6 @@ describe("APCODE", () => {
       beforeEach(() => {
         let anchor = document.createElement("div");
         anchor.classList.add("parent");
-        document.body.innerHTML = ""; // automatically removes all event listeners
         document.body.style.paddingTop = 0;
         document.body.style.marginTop = 0;
         document.body.appendChild(anchor);
@@ -97,7 +100,6 @@ describe("APCODE", () => {
         const anchor = document.createElement("div");
         anchor.classList.add("parent");
 
-        document.body.innerHTML = ""; // automatically removes all event listeners
         document.body.style.paddingTop = 0;
         document.body.style.marginTop = 0;
         document.body.appendChild(padding);
@@ -142,7 +144,6 @@ describe("APCODE", () => {
       const anchor = document.createElement("div");
       anchor.classList.add("parent");
 
-      document.body.innerHTML = "";
       document.body.style.paddingTop = 0;
       document.body.style.marginTop = 0;
       document.body.appendChild(padding);
