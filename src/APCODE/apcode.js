@@ -73,7 +73,7 @@ export default class Apcode {
     }
 
     if (this.shouldStick()) {
-      style.position = "fixed";
+      style.position = "fixed"; // cssText is not supported by IE
       style.top = "0px";
       style.left = `${this.bounds.left}px`;
       this.savedPosition = Math.round(window.scrollY);

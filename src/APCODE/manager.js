@@ -16,7 +16,7 @@ class Manager {
       const injected = item.inject(p, s);
 
       this.updateList.push(item);
-      this.scheduleUpdateAll();
+      this.scheduleUpdate(); // batch update
 
       return injected;
     }
@@ -28,17 +28,17 @@ class Manager {
   }
 
   registerEvents() {
-    this.scrollHandler = () => this.scheduleUpdateAll();
+    this.scrollHandler = () => this.scheduleUpdate(); // update all
     window.addEventListener("scroll", this.scrollHandler, { passive: true });
     window.addEventListener("resize", this.scrollHandler, { passive: true });
   }
 
-  scheduleUpdateAll() {
+  scheduleUpdate() {
     if (!this.frameRequested) {
       this.frameRequested = true;
       window.requestAnimationFrame(() => {
         if (this.updateList.length > 0) {
-          this.updateList.forEach(i => i.measure());
+          this.updateList.forEach(i => i.measure()); // batch dom changes
           this.updateList.forEach(i => i.onScroll());
           this.updateList = [];
         } else {
